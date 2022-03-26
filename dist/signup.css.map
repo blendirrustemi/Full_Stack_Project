@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../styles/signup.scss"
+    ],
+    "names": [],
+    "file": "signup.css"
+}
