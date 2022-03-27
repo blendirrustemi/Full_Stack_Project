@@ -35,9 +35,10 @@
   -webkit-transition: 0.3s;
   transition: 0.3s;
   cursor: pointer;
+  color: #fff;
 }
 
-.navbar .nav-auth .auth-link-container a {
+.navbar .nav-auth .auth-link-container p {
   color: #fff;
 }
 

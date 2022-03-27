@@ -4,14 +4,14 @@
         <a href="index.php">BlogPost</a>
     </div>
     <div class="nav-auth flex-row">
-        <div class="auth-link-container">
-            <a href="index.php">Home</a>
-        </div>
-        <div class="auth-link-container">
-            <a href="login.php">Log In</a>
-        </div>
-        <div class="auth-link-container">
-            <a href="signup.php">Sign Up</a>
-        </div>
+        <a href="index.php" class="auth-link-container">
+            <p>Home</p>
+        </a>
+        <a href="login.php" class="auth-link-container">
+            <p>Log In</p>
+        </a>
+        <a href="signup.php" class="auth-link-container">
+            <p>Sign Up</p>
+        </a>
     </div>
 </div>
