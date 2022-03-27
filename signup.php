@@ -1,6 +1,18 @@
 <?php
-    require './includes/database.php';
-    
+  require './includes/database.php';
+
+  $showErrorMessage = false;
+
+  if ( isset( $_POST['submit'] ) ) {
+
+    $name = htmlentities( mysqli_real_escape_string( $conn, $_POST['name'] ) );
+    $surname = htmlentities( mysqli_real_escape_string( $conn, $_POST['surname'] ) );
+    $email = htmlentities( mysqli_real_escape_string( $conn, $_POST['email'] ) );
+    $password = htmlentities( mysqli_real_escape_string( $conn, $_POST['password'] ) );
+    $gender = htmlentities( mysqli_real_escape_string( $conn, $_POST['gender'] ) );
+    $dob = htmlentities( mysqli_real_escape_string( $conn, $_POST['dob'] ) );
+
+  }
 ?>
 
 <!DOCTYPE html>
@@ -22,27 +34,33 @@
 
     <h1 class="signup-title">Sign Up</h1>
     <div class="signup-container">
-        <form action="">
-
+        <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+            <?php if ( !$showErrorMessage ): ?>
+            <div class="error-box">
+                <strong>
+                    <p>Please fill all the fields.</p>
+                </strong>
+            </div>
+            <?php endif ?>
             <div class="signup-form-field">
                 <label for="name">Name</label>
-                <input type="text" name="" id="name">
+                <input type="text" name="name" id="name">
             </div>
             <div class="signup-form-field">
                 <label for="surname">Surname</label>
-                <input type="text" name="" id="surname">
+                <input type="text" name="surname" id="surname">
             </div>
             <div class="signup-form-field">
                 <label for="email">Email</label>
-                <input type="email" name="" id="email">
+                <input type="email" name="email" id="email">
             </div>
             <div class="signup-form-field">
                 <label for="password">Password</label>
-                <input type="password" name="" id="password">
+                <input type="password" name="password" id="password">
             </div>
             <div class="signup-form-field">
                 <label for="">Gender</label>
-                <select>
+                <select name="gender">
                     <option value="" selected disabled>Select</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -50,9 +68,9 @@
             </div>
             <div class="signup-form-field">
                 <label for="dateofbirth">Date of Birth</label>
-                <input type="date" name="" id="dateofbirth">
+                <input type="date" name="dob" id="dateofbirth">
             </div>
-            <input class="signup-button" type="submit" value="Sign Up">
+            <input class="signup-button" name="submit" type="submit" value="Sign Up">
         </form>
     </div>
 </body>

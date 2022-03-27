@@ -9,6 +9,13 @@
     display: flex;
     flex-direction: column;
     gap: 25px;
+    .error-box {
+      padding: 1em;
+      border-radius: 10px;
+      background: rgb(155, 0, 0);
+      color: #fff;
+      animation: shake 0.75s linear forwards;
+    }
     .signup-form-field {
         display: flex;
         flex-direction: column;
@@ -44,4 +51,22 @@
 .signup-title {
     text-align: center;
     margin-bottom: 50px;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(10px);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
