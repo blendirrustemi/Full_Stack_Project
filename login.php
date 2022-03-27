@@ -17,6 +17,8 @@ if (isset($_POST['submit'])) {
         if (!empty($user_data)) {
             if ($username == $user_data['Username'] and $password == $user_data['Password']) {
                 header("Location: index.php");
+            } else {
+                $show_user_message = true;
             }
         } else {
             $show_user_message = true;
