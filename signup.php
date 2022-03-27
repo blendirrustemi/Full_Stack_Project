@@ -33,7 +33,7 @@
             </div>
             <div class="signup-form-field">
                 <label for="password">Password</label>
-                <input type="password " name="" id="password">
+                <input type="password" name="" id="password">
             </div>
             <div class="signup-form-field">
                 <label for="">Gender</label>
