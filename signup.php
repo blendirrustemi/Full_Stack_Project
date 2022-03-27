@@ -72,7 +72,7 @@
             <?php if ( $usernameExists ): ?>
             <div class="error-box">
                 <strong>
-                    <p>Username already exists.</p>
+                    <p>Username or Email already exists.</p>
                 </strong>
             </div>
             <?php endif ?>
