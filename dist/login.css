@@ -1,1 +1,9 @@
-/* No CSS *//*# sourceMappingURL=login.css.map */
+.login-container {
+  margin: 155px auto;
+  width: 650px;
+  max-width: 90%;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 0 5px 0px #578af8;
+          box-shadow: 0 0 5px 0px #578af8;
+}
+/*# sourceMappingURL=login.css.map */
