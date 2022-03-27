@@ -2,10 +2,9 @@
   require './includes/database.php';
 
   $showErrorMessage = false;
+  $usernameExists = false;
 
   if ( isset( $_POST['submit'] ) ) {
-
-    print_r($_POST);
 
     $name = htmlentities( mysqli_real_escape_string( $conn, $_POST['name'] ) );
     $surname = htmlentities( mysqli_real_escape_string( $conn, $_POST['surname'] ) );
@@ -24,13 +23,19 @@
       trim( $gender ) != '' &&
       trim( $dob ) != ''
     ) {
-        $query = "
+      $query = "
         insert into users
             (Name, Surname, Username, Email, Password, Gender, DOB)
                 values ('$name','$surname', '$username', '$email', '$password', '$gender', '$dob')
         ";
 
-        mysqli_query($conn, $query);
+        try{
+            mysqli_query( $conn, $query );
+            header("Location: index.php");
+        } catch (Exception $e){
+            $usernameExists = true;
+        }
+      
     } else {
       $showErrorMessage = true;
     }
@@ -64,29 +69,36 @@
                 </strong>
             </div>
             <?php endif ?>
+            <?php if ( $usernameExists ): ?>
+            <div class="error-box">
+                <strong>
+                    <p>Username already exists.</p>
+                </strong>
+            </div>
+            <?php endif ?>
             <div class="signup-form-field">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" value="<?php echo isset($_POST['name']) ? $name : ''?>">
             </div>
             <div class="signup-form-field">
                 <label for="surname">Surname</label>
-                <input type="text" name="surname" id="surname">
+                <input type="text" name="surname" id="surname" value="<?php echo isset($_POST['surname']) ? $surname : ''?>">
             </div>
             <div class="signup-form-field">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" value="<?php echo isset($_POST['username']) ? $username : ''?>">
             </div>
             <div class="signup-form-field">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" value="<?php echo isset($_POST['email']) ? $email : ''?>">
             </div>
             <div class="signup-form-field">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" value="<?php echo isset($_POST['password']) ? $password : ''?>">
             </div>
             <div class="signup-form-field">
                 <label for="gender">Gender</label>
-                <select name="gender" id="gender">
+                <select required name="gender" id="gender">
                     <option value="" selected disabled>Select</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -94,10 +106,11 @@
             </div>
             <div class="signup-form-field">
                 <label for="dateofbirth">Date of Birth</label>
-                <input type="date" name="dob" id="dateofbirth">
+                <input type="date" name="dob" id="dateofbirth" value="<?php echo isset($_POST['dob']) ? $dob : ''?>">
             </div>
             <input class="signup-button" name="submit" type="submit" value="Sign Up">
         </form>
     </div>
 </body>
+
 </html>
