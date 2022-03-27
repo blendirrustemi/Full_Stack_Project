@@ -1,1 +1,9 @@
-/* No CSS *//*# sourceMappingURL=signup.css.map */
+.signup-container {
+  margin: 0 auto;
+  width: 650px;
+  max-width: 90%;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 0 5px 0px #578af8;
+          box-shadow: 0 0 5px 0px #578af8;
+}
+/*# sourceMappingURL=signup.css.map */
