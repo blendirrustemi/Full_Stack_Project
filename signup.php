@@ -1,45 +1,50 @@
 <?php
-  require './includes/database.php';
+require './includes/database.php';
 
-  $showErrorMessage = false;
-  $usernameExists = false;
+$showErrorMessage = false;
+$usernameExists = false;
+$showPassMessage = false;
 
-  if ( isset( $_POST['submit'] ) ) {
+if (isset($_POST['submit'])) {
 
-    $name = htmlentities( mysqli_real_escape_string( $conn, $_POST['name'] ) );
-    $surname = htmlentities( mysqli_real_escape_string( $conn, $_POST['surname'] ) );
-    $username = htmlentities( mysqli_real_escape_string( $conn, $_POST['username'] ) );
-    $email = htmlentities( mysqli_real_escape_string( $conn, $_POST['email'] ) );
-    $password = htmlentities( mysqli_real_escape_string( $conn, $_POST['password'] ) );
-    $gender = htmlentities( mysqli_real_escape_string( $conn, $_POST['gender'] ) );
-    $dob = htmlentities( mysqli_real_escape_string( $conn, $_POST['dob'] ) );
+    $name = htmlentities(mysqli_real_escape_string($conn, $_POST['name']));
+    $surname = htmlentities(mysqli_real_escape_string($conn, $_POST['surname']));
+    $username = htmlentities(mysqli_real_escape_string($conn, $_POST['username']));
+    $email = htmlentities(mysqli_real_escape_string($conn, $_POST['email']));
+    $password = htmlentities(mysqli_real_escape_string($conn, $_POST['password']));
+    $gender = htmlentities(mysqli_real_escape_string($conn, $_POST['gender']));
+    $dob = htmlentities(mysqli_real_escape_string($conn, $_POST['dob']));
 
     if (
-      trim( $name ) != '' &&
-      trim( $surname ) != '' &&
-      trim( $username ) != '' &&
-      trim( $email ) != '' &&
-      trim( $password ) != '' &&
-      trim( $gender ) != '' &&
-      trim( $dob ) != ''
+        trim($name) != '' &&
+        trim($surname) != '' &&
+        trim($username) != '' &&
+        trim($email) != '' &&
+        trim($password) != '' &&
+        trim($gender) != '' &&
+        trim($dob) != ''
     ) {
-      $query = "
+        $query = "
         insert into users
             (Name, Surname, Username, Email, Password, Gender, DOB)
                 values ('$name','$surname', '$username', '$email', '$password', '$gender', '$dob')
         ";
 
-        try{
-            mysqli_query( $conn, $query );
-            header("Location: index.php");
-        } catch (Exception $e){
-            $usernameExists = true;
+        if (strlen($password) < 8) {
+            $showPassMessage = true;
+        } else {
+
+            try {
+                mysqli_query($conn, $query);
+                header("Location: login.php");
+            } catch (Exception $e) {
+                $usernameExists = true;
+            }
         }
-      
     } else {
-      $showErrorMessage = true;
+        $showErrorMessage = true;
     }
-  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,40 +67,47 @@
     <h1 class="signup-title">Sign Up</h1>
     <div class="signup-container">
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-            <?php if ( $showErrorMessage ): ?>
-            <div class="error-box">
-                <strong>
-                    <p>Please fill all the fields.</p>
-                </strong>
-            </div>
+            <?php if ($showErrorMessage) : ?>
+                <div class="error-box">
+                    <strong>
+                        <p>Please fill all the fields.</p>
+                    </strong>
+                </div>
             <?php endif ?>
-            <?php if ( $usernameExists ): ?>
-            <div class="error-box">
-                <strong>
-                    <p>Username or Email already exists.</p>
-                </strong>
-            </div>
+            <?php if ($usernameExists) : ?>
+                <div class="error-box">
+                    <strong>
+                        <p>Username or Email already exists.</p>
+                    </strong>
+                </div>
             <?php endif ?>
             <div class="signup-form-field">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" value="<?php echo isset($_POST['name']) ? $name : ''?>">
+                <input type="text" name="name" id="name" value="<?php echo isset($_POST['name']) ? $name : '' ?>">
             </div>
             <div class="signup-form-field">
                 <label for="surname">Surname</label>
-                <input type="text" name="surname" id="surname" value="<?php echo isset($_POST['surname']) ? $surname : ''?>">
+                <input type="text" name="surname" id="surname" value="<?php echo isset($_POST['surname']) ? $surname : '' ?>">
             </div>
             <div class="signup-form-field">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" value="<?php echo isset($_POST['username']) ? $username : ''?>">
+                <input type="text" name="username" id="username" value="<?php echo isset($_POST['username']) ? $username : '' ?>">
             </div>
             <div class="signup-form-field">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" value="<?php echo isset($_POST['email']) ? $email : ''?>">
+                <input type="email" name="email" id="email" value="<?php echo isset($_POST['email']) ? $email : '' ?>">
             </div>
             <div class="signup-form-field">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" value="<?php echo isset($_POST['password']) ? $password : ''?>">
+                <input type="password" name="password" id="password" value="<?php echo isset($_POST['password']) ? $password : '' ?>">
             </div>
+            <?php if ($showPassMessage) : ?>
+                <div class="error-box">
+                    <strong>
+                        <p>Password should be more than 8 characters.</p>
+                    </strong>
+                </div>
+            <?php endif ?>
             <div class="signup-form-field">
                 <label for="gender">Gender</label>
                 <select required name="gender" id="gender">
@@ -106,7 +118,7 @@
             </div>
             <div class="signup-form-field">
                 <label for="dateofbirth">Date of Birth</label>
-                <input type="date" name="dob" id="dateofbirth" value="<?php echo isset($_POST['dob']) ? $dob : ''?>">
+                <input type="date" name="dob" id="dateofbirth" value="<?php echo isset($_POST['dob']) ? $dob : '' ?>">
             </div>
             <input class="signup-button" name="submit" type="submit" value="Sign Up">
         </form>
