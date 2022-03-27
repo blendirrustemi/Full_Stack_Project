@@ -8,10 +8,10 @@
             <a href="index.php">Home</a>
         </div>
         <div class="auth-link-container">
-            <a href="login.php">LogIn</a>
+            <a href="login.php">Log In</a>
         </div>
         <div class="auth-link-container">
-            <a href="signup.php">SignUp</a>
+            <a href="signup.php">Sign Up</a>
         </div>
     </div>
 </div>

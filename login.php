@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
 
             <div class="login-form-field username_field">
                 <label for="">Username</label>
-                <input type="text" name="username_login" value="<?php echo isset($_POST['username_login']) ? $username : ''?>">
+                <input type="text" name="username_login" value="<?php echo isset($_POST['username_login']) ? $username : '' ?>">
             </div>
 
             <div class="login-form-field password_field">
