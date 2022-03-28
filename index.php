@@ -13,7 +13,7 @@
 <body>
     <?php require './includes/navbar.php'; ?>
     <div class = "index_main">
-        <h1 class="welcome_header">Welcome to our website./h1>
+        <h1 class="welcome_header">Welcome to our website.</h1>
     </div>
 </body>
 </html>
