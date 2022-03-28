@@ -10,8 +10,8 @@
 
     $name = htmlentities( mysqli_real_escape_string( $conn, $_POST['name'] ) );
     $surname = htmlentities( mysqli_real_escape_string( $conn, $_POST['surname'] ) );
-    $username = htmlentities( mysqli_real_escape_string( $conn, $_POST['username'] ) );
     $email = htmlentities( mysqli_real_escape_string( $conn, $_POST['email'] ) );
+    $username = htmlentities( mysqli_real_escape_string( $conn, $_POST['username'] ) );
     $password = htmlentities( mysqli_real_escape_string( $conn, $_POST['password'] ) );
     $gender = htmlentities( mysqli_real_escape_string( $conn, $_POST['gender'] ) );
     $dob = htmlentities( mysqli_real_escape_string( $conn, $_POST['dob'] ) );
@@ -19,19 +19,19 @@
     if (
       trim( $name ) != '' &&
       trim( $surname ) != '' &&
-      trim( $username ) != '' &&
       trim( $email ) != '' &&
+      trim( $username ) != '' &&
       trim( $password ) != '' &&
       trim( $gender ) != '' &&
       trim( $dob ) != ''
     ) {
       $query = "
         insert into users
-            (Name, Surname, Username, Email, Password, Gender, DOB)
-                values ('$name','$surname', '$username', '$email', '$password', '$gender', '$dob')
+            (Name, Surname, Email, Username, Password, Gender, DOB)
+                values ('$name','$surname', '$email', '$username', '$password', '$gender', '$dob')
         ";
-
-      if ( strlen( $password ) < 8 ) {
+      
+        if ( strlen( $password ) < 8 ) {
         $showPassMessage = true;
       } else {
         try {
@@ -39,11 +39,10 @@
             header( "Location: login.php" );
           }
         } catch ( Exception $e ) {
-          if ( $e->getMessage() == "Duplicate entry '$username' for key 'Username'" ) {
-            $usernameExists = true;
-          }
           if ( $e->getMessage() == "Duplicate entry '$email' for key 'Email'" ) {
             $emailExists = true;
+          } elseif ( $e->getMessage() == "Duplicate entry '$username' for key 'Username'" ) {
+            $usernameExists = true;
           }
         }
       }
