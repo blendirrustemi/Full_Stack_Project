@@ -45,4 +45,10 @@
 .navbar .nav-auth .auth-link-container:hover {
   background: #505094;
 }
+
+@media (max-width: 1000px) {
+  .navbar {
+    padding: 1em 2em;
+  }
+}
 /*# sourceMappingURL=navbar.css.map */

@@ -4,6 +4,7 @@
   $showErrorMessage = false;
   $usernameExists = false;
   $showPassMessage = false;
+  $emailExists = false;
 
   if ( isset( $_POST['submit'] ) ) {
 
@@ -37,11 +38,14 @@
         try {
           if ( mysqli_query( $conn, $query ) ) {
             header( "Location: login.php" );
-          } else {
-            $usernameExists = true;
           }
         } catch ( Exception $e ) {
-          $usernameExists = true;
+          if ( $e->getMessage() == "Duplicate entry '$username' for key 'Username'" ) {
+            $usernameExists = true;
+          }
+          if ( $e->getMessage() == "Duplicate entry '$email' for key 'Email'" ) {
+            $emailExists = true;
+          }
         }
       }
     } else {
@@ -71,11 +75,11 @@
     <div class="signup-container">
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
             <?php if ( $showErrorMessage ): ?>
-                <div class="error-box">
-                    <strong>
-                        <p>Please fill all the fields.</p>
-                    </strong>
-                </div>
+            <div class="error-box">
+                <strong>
+                    <p>Please fill all the fields.</p>
+                </strong>
+            </div>
             <?php endif ?>
 
             <div class="signup-form-field">
@@ -84,33 +88,44 @@
             </div>
             <div class="signup-form-field">
                 <label for="surname">Surname</label>
-                <input type="text" name="surname" id="surname" value="<?php echo isset( $_POST['surname'] ) ? $surname : '' ?>">
-            </div>
-            <div class="signup-form-field">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" value="<?php echo isset( $_POST['username'] ) ? $username : '' ?>">
+                <input type="text" name="surname" id="surname"
+                    value="<?php echo isset( $_POST['surname'] ) ? $surname : '' ?>">
             </div>
             <div class="signup-form-field">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" value="<?php echo isset( $_POST['email'] ) ? $email : '' ?>">
+                <input type="email" name="email" id="email"
+                    value="<?php echo isset( $_POST['email'] ) ? $email : '' ?>">
+            </div>
+            <?php if ( $emailExists ): ?>
+            <div class="error-box">
+                <strong>
+                    <p>Email already exists.</p>
+                </strong>
+            </div>
+            <?php endif ?>
+            <div class="signup-form-field">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username"
+                    value="<?php echo isset( $_POST['username'] ) ? $username : '' ?>">
             </div>
             <?php if ( $usernameExists ): ?>
-                <div class="error-box">
-                    <strong>
-                        <p>Username or Email already exists.</p>
-                    </strong>
-                </div>
+            <div class="error-box">
+                <strong>
+                    <p>Username already exists.</p>
+                </strong>
+            </div>
             <?php endif ?>
             <div class="signup-form-field">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" value="<?php echo isset( $_POST['password'] ) ? $password : '' ?>">
+                <input type="password" name="password" id="password"
+                    value="<?php echo isset( $_POST['password'] ) ? $password : '' ?>">
             </div>
             <?php if ( $showPassMessage ): ?>
-                <div class="error-box">
-                    <strong>
-                        <p>Password should be more than 8 characters.</p>
-                    </strong>
-                </div>
+            <div class="error-box">
+                <strong>
+                    <p>Password should be more than 8 characters.</p>
+                </strong>
+            </div>
             <?php endif ?>
             <div class="signup-form-field">
                 <label for="gender">Gender</label>
