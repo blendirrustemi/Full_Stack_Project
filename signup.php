@@ -37,6 +37,8 @@
         try {
           if ( mysqli_query( $conn, $query ) ) {
             header( "Location: login.php" );
+          } else {
+            $usernameExists = true;
           }
         } catch ( Exception $e ) {
           $usernameExists = true;
@@ -75,13 +77,7 @@
                     </strong>
                 </div>
             <?php endif ?>
-<?php if ( $usernameExists ): ?>
-                <div class="error-box">
-                    <strong>
-                        <p>Username or Email already exists.</p>
-                    </strong>
-                </div>
-            <?php endif ?>
+
             <div class="signup-form-field">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" value="<?php echo isset( $_POST['name'] ) ? $name : '' ?>">
@@ -98,6 +94,13 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" value="<?php echo isset( $_POST['email'] ) ? $email : '' ?>">
             </div>
+            <?php if ( $usernameExists ): ?>
+                <div class="error-box">
+                    <strong>
+                        <p>Username or Email already exists.</p>
+                    </strong>
+                </div>
+            <?php endif ?>
             <div class="signup-form-field">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" value="<?php echo isset( $_POST['password'] ) ? $password : '' ?>">
