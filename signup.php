@@ -33,7 +33,6 @@
       if ( strlen( $password ) < 8 ) {
         $showPassMessage = true;
       } else {
-
         try {
           if ( mysqli_query( $conn, $query ) ) {
             header( "Location: login.php" );
@@ -70,6 +69,7 @@
     <h1 class="signup-title">Sign Up</h1>
     <div class="signup-container">
         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+
             <?php if ( $showErrorMessage ): ?>
                 <div class="error-box">
                     <strong>
@@ -82,18 +82,22 @@
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" value="<?php echo isset( $_POST['name'] ) ? $name : '' ?>">
             </div>
+
             <div class="signup-form-field">
                 <label for="surname">Surname</label>
                 <input type="text" name="surname" id="surname" value="<?php echo isset( $_POST['surname'] ) ? $surname : '' ?>">
             </div>
+
             <div class="signup-form-field">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" value="<?php echo isset( $_POST['username'] ) ? $username : '' ?>">
             </div>
+
             <div class="signup-form-field">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" value="<?php echo isset( $_POST['email'] ) ? $email : '' ?>">
             </div>
+
             <?php if ( $usernameExists ): ?>
                 <div class="error-box">
                     <strong>
@@ -101,10 +105,12 @@
                     </strong>
                 </div>
             <?php endif ?>
+
             <div class="signup-form-field">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" value="<?php echo isset( $_POST['password'] ) ? $password : '' ?>">
             </div>
+
             <?php if ( $showPassMessage ): ?>
                 <div class="error-box">
                     <strong>
@@ -112,6 +118,7 @@
                     </strong>
                 </div>
             <?php endif ?>
+            
             <div class="signup-form-field">
                 <label for="gender">Gender</label>
                 <select required name="gender" id="gender">
@@ -120,6 +127,7 @@
                     <option value="female">Female</option>
                 </select>
             </div>
+
             <div class="signup-form-field">
                 <label for="dateofbirth">Date of Birth</label>
                 <input type="date" name="dob" id="dateofbirth" value="<?php echo isset( $_POST['dob'] ) ? $dob : '' ?>">
@@ -128,5 +136,4 @@
         </form>
     </div>
 </body>
-
 </html>
