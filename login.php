@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="./dist/shared.css">
     <link rel="stylesheet" href="./dist/navbar.css">
     <link rel="stylesheet" href="./dist/login.css">
-    <title>Login</title>
+    <title>Log In</title>
 </head>
 
 <body>

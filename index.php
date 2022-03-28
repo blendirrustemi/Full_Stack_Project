@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./dist/index.css">
     <link rel="stylesheet" href="./dist/shared.css">
     <link rel="stylesheet" href="./dist/navbar.css">
-    <title>Document</title>
+    <title>BlogPost</title>
 </head>
 <body>
     <?php require './includes/navbar.php'; ?>
